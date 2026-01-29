@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
 import Header from "./Header";
-import HeroList, { HeroListItem } from "./HeroList";
 import TextInsertion from "./TextInsertion";
+import CompareText from "./CompareText";
 
 const App = () => {
   const [selectedText, setSelectedText] = useState<string>("");
@@ -64,19 +64,6 @@ const App = () => {
     });
   };
 
-  // Replace all selected text
-  const handleReplaceText = async (newText: string) => {
-    return Word.run(async (context) => {
-      const range = context.document.body;
-      range.clear();
-      range.insertParagraph(newText, Word.InsertLocation.start);
-      await context.sync();
-      setStatus("Document replaced successfully!");
-    }).catch((error) => {
-      setStatus(`Error: ${error.message}`);
-    });
-  };
-
   // Apply formatting
   const handleApplyFormatting = async () => {
     return Word.run(async (context) => {
@@ -90,22 +77,22 @@ const App = () => {
     });
   };
 
-  const heroItems: HeroListItem[] = [
-    { icon: <span>📝</span>, primaryText: "Insert custom text into your document" },
-    { icon: <span>📊</span>, primaryText: "Count words and analyze content" },
-    { icon: <span>✏️</span>, primaryText: "Apply formatting to your text" },
-    { icon: <span>📖</span>, primaryText: "View and manage document content" },
-  ];
-
   return (
-    <div className="ms-welcome" style={{ fontFamily: "Segoe UI, sans-serif" }}>
-      <Header title="Word Add-in" logo="assets/getaway_logo_black.svg" message="Document Tools" />
-      {/* <HeroList message="Available Features" items={heroItems} /> */}
+    <div
+      className="ms-welcome"
+      style={{ fontFamily: "Segoe UI, sans-serif", paddingBottom: "50px" }}
+    >
+      <Header title="Word Add-in" logo="assets/getaway_logo_black.svg" message="Diff Tool" />
 
       <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
+        {/* TEXT INSERTION COMPONENT */}
         <TextInsertion insertText={handleInsertText} getSelectedText={getSelectedText} />
 
-        <div style={{ marginTop: "30px", display: "flex", flexDirection: "column", gap: "10px" }}>
+        {/* COMPARE TEXT COMPONENT */}
+        <CompareText setStatus={setStatus} />
+
+        {/* OTHER BUTTONS */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <button
             onClick={handleGetSelectedText}
             style={{
@@ -147,50 +134,50 @@ const App = () => {
           >
             Apply Bold & Larger Font
           </button>
-
-          {status && (
-            <div
-              style={{
-                marginTop: "15px",
-                padding: "10px",
-                backgroundColor: "#f0f0f0",
-                borderRadius: "4px",
-                color: "#333",
-              }}
-            >
-              {status}
-            </div>
-          )}
-
-          {selectedText && (
-            <div
-              style={{
-                marginTop: "15px",
-                padding: "10px",
-                backgroundColor: "#e8f4f8",
-                borderRadius: "4px",
-                color: "#333",
-              }}
-            >
-              <strong>Document Text:</strong>
-              <p>{selectedText.substring(0, 200)}...</p>
-            </div>
-          )}
-
-          {wordCount > 0 && (
-            <div
-              style={{
-                marginTop: "15px",
-                padding: "10px",
-                backgroundColor: "#e8f8e8",
-                borderRadius: "4px",
-                color: "#333",
-              }}
-            >
-              <strong>Word Count: {wordCount} words</strong>
-            </div>
-          )}
         </div>
+
+        {status && (
+          <div
+            style={{
+              marginTop: "15px",
+              padding: "10px",
+              backgroundColor: "#f0f0f0",
+              borderRadius: "4px",
+              color: "#333",
+            }}
+          >
+            {status}
+          </div>
+        )}
+
+        {selectedText && (
+          <div
+            style={{
+              marginTop: "15px",
+              padding: "10px",
+              backgroundColor: "#e8f4f8",
+              borderRadius: "4px",
+              color: "#333",
+            }}
+          >
+            <strong>Document Text:</strong>
+            <p>{selectedText.substring(0, 200)}...</p>
+          </div>
+        )}
+
+        {wordCount > 0 && (
+          <div
+            style={{
+              marginTop: "15px",
+              padding: "10px",
+              backgroundColor: "#e8f8e8",
+              borderRadius: "4px",
+              color: "#333",
+            }}
+          >
+            <strong>Word Count: {wordCount} words</strong>
+          </div>
+        )}
       </div>
     </div>
   );
