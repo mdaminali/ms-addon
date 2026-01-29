@@ -19,6 +19,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: "70px",
   },
   textAreaField: {
     margin: "10px",

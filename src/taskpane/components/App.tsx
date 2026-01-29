@@ -84,7 +84,7 @@ const App = () => {
     >
       <Header title="Word Add-in" logo="assets/getaway_logo_black.svg" message="Diff Tool" />
 
-      <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
+      <div style={{ padding: "20px", margin: "0 auto" }}>
         {/* TEXT INSERTION COMPONENT */}
         <TextInsertion insertText={handleInsertText} getSelectedText={getSelectedText} />
 

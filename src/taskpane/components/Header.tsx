@@ -15,6 +15,12 @@ const useStyles = makeStyles({
     paddingBottom: "10px",
     paddingTop: "10px",
     backgroundColor: tokens.colorNeutralBackground3,
+    position: "fixed",
+    width: "100%",
+    top: 0,
+    left: 0,
+    zIndex: 1000,
+    boxShadow: tokens.shadow2,
   },
   message: {
     fontSize: "24px",
