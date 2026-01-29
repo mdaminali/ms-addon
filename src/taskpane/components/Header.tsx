@@ -12,12 +12,12 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingBottom: "20px",
+    paddingBottom: "10px",
     paddingTop: "10px",
     backgroundColor: tokens.colorNeutralBackground3,
   },
   message: {
-    fontSize: "34px",
+    fontSize: "24px",
     fontWeight: tokens.fontWeightRegular,
     fontColor: tokens.colorNeutralBackgroundStatic,
   },
@@ -29,8 +29,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
   return (
     <section className={styles.welcome__header}>
-      <Image width="180" height="90" src={logo} alt={title} />
-      <h1 className={styles.message}>{message}</h1>
+      <Image width="180" src={logo} alt={title} />
+      {/* <h1 className={styles.message}>{message}</h1> */}
     </section>
   );
 };

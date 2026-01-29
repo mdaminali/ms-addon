@@ -34,6 +34,19 @@ const App = () => {
     });
   };
 
+  // Get selected text for TextInsertion component
+  const getSelectedText = async (): Promise<string> => {
+    return Word.run(async (context) => {
+      const selection = context.document.getSelection();
+      selection.load("text");
+      await context.sync();
+      return selection.text || "";
+    }).catch((error) => {
+      console.error("Error getting selected text:", error);
+      return "";
+    });
+  };
+
   // Count words in document
   const handleCountWords = async () => {
     return Word.run(async (context) => {
@@ -87,10 +100,10 @@ const App = () => {
   return (
     <div className="ms-welcome" style={{ fontFamily: "Segoe UI, sans-serif" }}>
       <Header title="Word Add-in" logo="assets/getaway_logo_black.svg" message="Document Tools" />
-      <HeroList message="Available Features" items={heroItems} />
+      {/* <HeroList message="Available Features" items={heroItems} /> */}
 
       <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-        <TextInsertion insertText={handleInsertText} />
+        <TextInsertion insertText={handleInsertText} getSelectedText={getSelectedText} />
 
         <div style={{ marginTop: "30px", display: "flex", flexDirection: "column", gap: "10px" }}>
           <button
